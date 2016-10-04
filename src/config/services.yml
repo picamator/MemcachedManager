@@ -26,23 +26,26 @@ services:
     class: '\Cache\Adapter\Memcached\MemcachedCachePool'
     arguments: ['@memcached_client']
 
-  # operations
+  # operations, SHOULD be lazy loaded because it might be highly possible that CacheManager was created only to use one or two operations
   operation_save:
     class: '\Picamator\CacheManager\Operation\Save'
     arguments: ['@cache_key_generator', '@cache_item_pool', '@cache_item_factory']
+    lazy: true
 
   operation_search:
     class: '\Picamator\CacheManager\Operation\Search'
     arguments: ['@cache_key_generator', '@cache_item_pool', '@search_result_factory']
+    lazy: true
 
-  operation_invalidate:
-    class: '\Picamator\CacheManager\Operation\Invalidate'
+  operation_delete:
+    class: '\Picamator\CacheManager\Operation\Delete'
     arguments: ['@cache_key_generator', '@cache_item_pool']
+    lazy: true
 
   # main
   cache_manager:
     class: '\Picamator\CacheManager\CacheManager'
-    arguments: ['@operation_save', '@operation_search', '@operation_invalidate']
+    arguments: ['@operation_save', '@operation_search', '@operation_delete']
 
   cache_manager_subject:
     class: '\Picamator\CacheManager\CacheManagerSubject'

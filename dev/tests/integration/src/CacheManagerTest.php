@@ -30,7 +30,7 @@ class CacheManagerTest extends BaseTest
             'id',           // $idName
             'cloud'         // $contextName
         );
-        $data = [['id' => 1, 'name' => 'Sergii']];
+        $data = [['id' => 20, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
@@ -38,7 +38,7 @@ class CacheManagerTest extends BaseTest
         // search
         $searchCriteria = new SearchCriteria(
             'customer',     // $entityName
-            [1, 2, 3],      // $idList
+            [20, 21, 22],      // $idList
             ['id', 'name'], // $fieldList
             'id',           // $idName
             'cloud'         // $contextName
@@ -73,7 +73,7 @@ class CacheManagerTest extends BaseTest
             'id',                       // $idName
             'cloud'                     // $contextName
         );
-        $data = [['id' => 1, 'name' => 'Sergii', 'address' => 'Ukraine, Kyiv']];
+        $data = [['id' => 30, 'name' => 'Sergii', 'address' => 'Ukraine, Kyiv']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
@@ -81,7 +81,7 @@ class CacheManagerTest extends BaseTest
         // search
         $searchCriteria = new SearchCriteria(
             'customer',     // $entityName
-            [1, 2, 3],      // $idList
+            [30, 31, 32],      // $idList
             ['id', 'name'], // $fieldList
             'id',           // $idName
             'cloud'         // $contextName
@@ -116,7 +116,7 @@ class CacheManagerTest extends BaseTest
             'id',            // $idName
             'cloud'          // $contextName
         );
-        $data = [['id' => 20, 'name' => 'Sergii']];
+        $data = [['id' => 40, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
@@ -124,7 +124,7 @@ class CacheManagerTest extends BaseTest
         // search
         $searchCriteria = new SearchCriteria(
             'customer',                 // $entityName
-            [20, 21, 22],                  // $idList
+            [40, 41, 42],                  // $idList
             ['id', 'name', 'address'],  // $fieldList
             'id',                       // $idName
             'cloud'                     // $contextName
@@ -135,5 +135,54 @@ class CacheManagerTest extends BaseTest
         $this->assertEquals(0, $searchResult->count());
         $this->assertCount(3, $searchResult->getMissedData());
 
+    }
+
+    public function testSave()
+    {
+        // save to cache
+        $saveSearchCriteria = new SearchCriteria(
+            'customer',      // $entityName
+            [],              // $idList
+            ['id', 'name'],  // $fieldList
+            'id',            // $idName
+            'cloud'          // $contextName
+        );
+        $data = [['id' => 60, 'name' => 'Sergii']];
+
+        $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
+        $this->assertTrue($actualSave);
+    }
+
+    public function testDelete()
+    {
+        // save to cache
+        $saveSearchCriteria = new SearchCriteria(
+            'customer',      // $entityName
+            [],              // $idList
+            ['id', 'name'],  // $fieldList
+            'id',            // $idName
+            'cloud'          // $contextName
+        );
+        $data = [['id' => 50, 'name' => 'Sergii']];
+
+        $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
+        $this->assertTrue($actualSave);
+
+        // invalidate
+        $searchCriteria = new SearchCriteria(
+            'customer',                 // $entityName
+            [50],                       // $idList
+            [],                         // $fieldList
+            'id',                       // $idName
+            'cloud'                     // $contextName
+        );
+
+        $this->cacheManager->delete($searchCriteria);
+
+        // search
+        $searchResult = $this->cacheManager->search($searchCriteria);
+        $this->assertFalse($searchResult->hasData());
+        $this->assertEquals(0, $searchResult->count());
+        $this->assertCount(1, $searchResult->getMissedData());
     }
 }

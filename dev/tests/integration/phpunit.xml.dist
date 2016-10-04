@@ -11,7 +11,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Picamator MemcachedManager Test Suite">
+        <testsuite name="Picamator MemcachedManager Integration Test Suite">
             <directory>./src/</directory>
         </testsuite>
     </testsuites>

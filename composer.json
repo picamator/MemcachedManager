@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Picamator\\MemcachedManager\\Tests\\Unit\\": "dev/tests/unit/src"
+            "Picamator\\MemcachedManager\\Tests\\Integration\\": "dev/tests/integration/src"
         }
     },
     "minimum-stability": "stable",

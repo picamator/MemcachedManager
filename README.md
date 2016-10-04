@@ -1,7 +1,7 @@
 MemcachedManager
 ================
 
-MemcacheManager is a wrapper over [Memcached](https://memcached.org/) using [CacheManager](https://github.com/picamator/CacheManager) to optimise way to saving API's search result.
+MemcachedManager is an example of usage [CacheManager](https://github.com/picamator/CacheManager) over [Memcached](https://memcached.org/).
 
 Requirements
 ------------
@@ -10,7 +10,7 @@ Requirements
 
 Installation
 ------------
-> @todo in-progress
+* Run `composer install --no-dev`
 
 Usage
 -----

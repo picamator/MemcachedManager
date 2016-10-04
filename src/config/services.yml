@@ -1,0 +1,49 @@
+parameters:
+  memcached_client_host: 'localhost'
+  memcached_client_port: 11211
+
+services:
+  cache_key_generator:
+    class: '\Picamator\CacheManager\Cache\KeyGenerator'
+
+  object_manager:
+    class: '\Picamator\CacheManager\ObjectManager'
+
+  cache_item_factory:
+    class: '\Picamator\CacheManager\Cache\CacheItemFactory'
+    arguments: ['@object_manager']
+
+  search_result_factory:
+    class: '\Picamator\CacheManager\Data\SearchResultFactory'
+    arguments: ['@object_manager']
+
+  memcached_client:
+    class: '\Memcached'
+    calls:
+      - ['addServer', ['%memcached_client_host%', '%memcached_client_port%']]
+
+  cache_item_pool:
+    class: '\Cache\Adapter\Memcached\MemcachedCachePool'
+    arguments: ['@memcached_client']
+
+  # operations
+  operation_save:
+    class: '\Picamator\CacheManager\Operation\Save'
+    arguments: ['@cache_key_generator', '@cache_item_pool', '@cache_item_factory']
+
+  operation_search:
+    class: '\Picamator\CacheManager\Operation\Search'
+    arguments: ['@cache_key_generator', '@cache_item_pool', '@search_result_factory']
+
+  operation_invalidate:
+    class: '\Picamator\CacheManager\Operation\Invalidate'
+    arguments: ['@cache_key_generator', '@cache_item_pool']
+
+  # main
+  cache_manager:
+    class: '\Picamator\CacheManager\CacheManager'
+    arguments: ['@operation_save', '@operation_search', '@operation_invalidate']
+
+  cache_manager_subject:
+    class: '\Picamator\CacheManager\CacheManagerSubject'
+    arguments: ['@cache_manager']

@@ -1,8 +1,6 @@
 <?php
 namespace Picamator\MemcachedManager\Tests\Integration;
 
-use Picamator\CacheManager\Data\SearchCriteria;
-
 class CacheManagerTest extends BaseTest
 {
     public function testEmptyCacheSearch()
@@ -168,7 +166,7 @@ class CacheManagerTest extends BaseTest
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
 
-        // invalidate
+        // delete
         $searchCriteria = $this->searchCriteriaBuilder
             ->setContextName('cloud')
             ->setEntityName('customer')

@@ -47,15 +47,18 @@ services:
     lazy: true
 
   # logger: info
-  logger_stream_handler:
-    class: '\Monolog\Handler\StreamHandler'
-    arguments: ['./../../../../data/log/app.log', 200]
+  logger_test_handler:
+    class: '\Monolog\Handler\TestHandler'
 
   logger:
     class: '\Monolog\Logger'
-    arguments: ['name']
+    arguments: ['Observe Operations']
     calls:
-      - ['pushHandler', ['%logger_stream_handler%']]
+      - ['pushHandler', ['@logger_test_handler']]
+
+  logger_observer:
+    class: '\Picamator\MemcachedManager\Observer\OperationLogger'
+    arguments: ['@logger']
 
   # main
   cache_manager:

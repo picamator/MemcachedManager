@@ -31,6 +31,11 @@ abstract class BaseTest extends TestCase
      */
     protected $cacheManagerSubject;
 
+    /**
+     * @var \Picamator\CacheManager\Data\SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
 	protected function setUp() 
 	{
 		parent::setUp();
@@ -41,5 +46,6 @@ abstract class BaseTest extends TestCase
 
         $this->cacheManager = $this->container->get('cache_manager');
         $this->cacheManagerSubject = $this->container->get('cache_manager_subject');
+        $this->searchCriteriaBuilder = $this->container->get('search_criteria_builder');
     }
 }

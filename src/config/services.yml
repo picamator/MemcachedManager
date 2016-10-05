@@ -17,6 +17,10 @@ services:
     class: '\Picamator\CacheManager\Data\SearchResultFactory'
     arguments: ['@object_manager']
 
+  search_criteria_builder:
+    class: '\Picamator\CacheManager\Data\SearchCriteriaBuilder'
+    arguments: ['@object_manager']
+
   memcached_client:
     class: '\Memcached'
     calls:
@@ -41,6 +45,17 @@ services:
     class: '\Picamator\CacheManager\Operation\Delete'
     arguments: ['@cache_key_generator', '@cache_item_pool']
     lazy: true
+
+  # logger: info
+  logger_stream_handler:
+    class: '\Monolog\Handler\StreamHandler'
+    arguments: ['./../../../../data/log/app.log', 200]
+
+  logger:
+    class: '\Monolog\Logger'
+    arguments: ['name']
+    calls:
+      - ['pushHandler', ['%logger_stream_handler%']]
 
   # main
   cache_manager:

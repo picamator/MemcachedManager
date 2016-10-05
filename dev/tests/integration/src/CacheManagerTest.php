@@ -7,13 +7,13 @@ class CacheManagerTest extends BaseTest
 {
     public function testEmptyCacheSearch()
     {
-        $searchCriteria = new SearchCriteria(
-            'customer',     // $entityName
-            [10, 11],       // $idList
-            ['id', 'name'], // $fieldList
-            'id',           // $idName
-            'cloud'         // $contextName
-        );
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setIdList([10, 11])
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
 
         $searchResult = $this->cacheManager->search($searchCriteria);
         $this->assertFalse($searchResult->hasData());
@@ -23,26 +23,26 @@ class CacheManagerTest extends BaseTest
     public function testHasInCacheSearch()
     {
         // save to cache
-        $saveSearchCriteria = new SearchCriteria(
-            'customer',     // $entityName
-            [],             // $idList
-            ['id', 'name'], // $fieldList
-            'id',           // $idName
-            'cloud'         // $contextName
-        );
+        $saveSearchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
+
         $data = [['id' => 20, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
 
         // search
-        $searchCriteria = new SearchCriteria(
-            'customer',     // $entityName
-            [20, 21, 22],      // $idList
-            ['id', 'name'], // $fieldList
-            'id',           // $idName
-            'cloud'         // $contextName
-        );
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setIdList([20, 21, 22])
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
 
         $searchResult = $this->cacheManager->search($searchCriteria);
         $this->assertTrue($searchResult->hasData());
@@ -66,26 +66,26 @@ class CacheManagerTest extends BaseTest
     public function testHasMoreFieldsInCacheSearch()
     {
         // save to cache
-        $saveSearchCriteria = new SearchCriteria(
-            'customer',                 // $entityName
-            [],                         // $idList
-            ['id', 'name', 'address'],  // $fieldList
-            'id',                       // $idName
-            'cloud'                     // $contextName
-        );
+        $saveSearchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setFieldList(['id', 'name', 'address'])
+            ->setIdName('id')
+            ->build();
+
         $data = [['id' => 30, 'name' => 'Sergii', 'address' => 'Ukraine, Kyiv']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
 
         // search
-        $searchCriteria = new SearchCriteria(
-            'customer',     // $entityName
-            [30, 31, 32],      // $idList
-            ['id', 'name'], // $fieldList
-            'id',           // $idName
-            'cloud'         // $contextName
-        );
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setIdList([30, 31, 32])
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
 
         $searchResult = $this->cacheManager->search($searchCriteria);
         $this->assertTrue($searchResult->hasData());
@@ -109,26 +109,26 @@ class CacheManagerTest extends BaseTest
     public function testHasNotInCacheSearch()
     {
         // save to cache
-        $saveSearchCriteria = new SearchCriteria(
-            'customer',      // $entityName
-            [],              // $idList
-            ['id', 'name'],  // $fieldList
-            'id',            // $idName
-            'cloud'          // $contextName
-        );
+        $saveSearchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
+
         $data = [['id' => 40, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
 
         // search
-        $searchCriteria = new SearchCriteria(
-            'customer',                 // $entityName
-            [40, 41, 42],                  // $idList
-            ['id', 'name', 'address'],  // $fieldList
-            'id',                       // $idName
-            'cloud'                     // $contextName
-        );
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setIdList([40, 41, 42])
+            ->setFieldList(['id', 'name', 'address'])
+            ->setIdName('id')
+            ->build();
 
         $searchResult = $this->cacheManager->search($searchCriteria);
         $this->assertFalse($searchResult->hasData());
@@ -140,14 +140,14 @@ class CacheManagerTest extends BaseTest
     public function testSave()
     {
         // save to cache
-        $saveSearchCriteria = new SearchCriteria(
-            'customer',      // $entityName
-            [],              // $idList
-            ['id', 'name'],  // $fieldList
-            'id',            // $idName
-            'cloud'          // $contextName
-        );
-        $data = [['id' => 60, 'name' => 'Sergii']];
+        $saveSearchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
+
+        $data = [['id' => 50, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
@@ -156,26 +156,25 @@ class CacheManagerTest extends BaseTest
     public function testDelete()
     {
         // save to cache
-        $saveSearchCriteria = new SearchCriteria(
-            'customer',      // $entityName
-            [],              // $idList
-            ['id', 'name'],  // $fieldList
-            'id',            // $idName
-            'cloud'          // $contextName
-        );
-        $data = [['id' => 50, 'name' => 'Sergii']];
+        $saveSearchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setFieldList(['id', 'name'])
+            ->setIdName('id')
+            ->build();
+
+        $data = [['id' => 60, 'name' => 'Sergii']];
 
         $actualSave = $this->cacheManager->save($saveSearchCriteria, $data);
         $this->assertTrue($actualSave);
 
         // invalidate
-        $searchCriteria = new SearchCriteria(
-            'customer',                 // $entityName
-            [50],                       // $idList
-            [],                         // $fieldList
-            'id',                       // $idName
-            'cloud'                     // $contextName
-        );
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setContextName('cloud')
+            ->setEntityName('customer')
+            ->setIdList([60])
+            ->setIdName('id')
+            ->build();
 
         $this->cacheManager->delete($searchCriteria);
 

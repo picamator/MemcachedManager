@@ -53,3 +53,6 @@ CMD ["/usr/sbin/sshd", "-D"]
 # volume
 RUN mkdir /MemcachedManager
 VOLUME /MemcachedManager
+
+# memcached
+CMD ["/usr/bin/memcached -u root"]

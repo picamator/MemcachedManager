@@ -36,6 +36,7 @@
         "symfony/config": "~3.1",
         "symfony/yaml": "~3.1",
         "cache/memcached-adapter": "~0.3",
+        "monolog/monolog": "~1.21",
         "picamator/CacheManager": "dev-dev"
   	},
    "require-dev": {

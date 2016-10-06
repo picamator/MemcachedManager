@@ -14,11 +14,47 @@ Installation
 
 Usage
 -----
-> @todo in-progress
 
-Documentation
--------------
-> @todo in-progress
+```php
+<?php
+declare(strict_types = 1);
+
+require_once './vendor/autoload.php';
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
+// init DI
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($this->container, new FileLocator(__DIR__));
+$loader->load('./src/config/services.yml');
+
+// gets search criteria and manager
+/** @var \Picamator\CacheManager\CacheManagerSubject $cacheManagerSubject */
+$cacheManagerSubject = $this->container->get('cache_manager_subject');
+/** @var \Picamator\CacheManager\Data\SearchCriteriaBuilder $searchCriteriaBuilder */
+$searchCriteriaBuilder = $this->container->get('search_criteria_builder');
+
+// add observer to manager
+/** @var \Picamator\MemcachedManager\Observer\OperationLogger $loggerObserver */
+$loggerObserver = $this->container->get('logger_observer');
+$cacheManagerSubject->attach('beforeSearch', $loggerObserver);
+
+// search
+$searchCriteria = $this->searchCriteriaBuilder
+    ->setContextName('cloud')
+    ->setEntityName('customer')
+    ->setIdList([200, 201])
+    ->setFieldList(['id', 'name', 'address'])
+    ->setIdName('id')
+    ->build();
+    
+$searchResult = $this->cacheManager->search($searchCriteria);
+
+```
+
+More examples can be found inside [integration tests](dev/test/integration/src).
 
 Developing
 ----------

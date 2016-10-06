@@ -35,6 +35,7 @@ Moreover it's assumed that:
 SSH
 ---
 Please use credentials bellow to connect to container via ssh:
+
 1. user: `root`
 2. password: `screencast`
 

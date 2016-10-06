@@ -72,4 +72,4 @@ By participating in this project and its community you agree to abide by those t
 
 License
 -------
-CacheManager is licensed under the MIT License. Please see the [LICENSE](LICENSE.txt) file for details
+MemcachedManager is licensed under the MIT License. Please see the [LICENSE](LICENSE.txt) file for details

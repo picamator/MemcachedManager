@@ -20,6 +20,8 @@ Moreover it's assumed that:
 2. Check images `sudo docker images`
 3. Run container `sudo docker run -d -p 2223:22 -v ~/project-path/MemcachedManager:/MemcachedManager -t my-docker-account/memcachedmanager`
 4. Check container by executing command `sudo docker ps`
+5. Run command to get into container `ssh root@0.0.0.0 -p 2223`
+6. Run memcached `memcached -u root`
 
 ### Installation using prepared Docker image
 1. Run command `sudo docker login`
@@ -27,12 +29,14 @@ Moreover it's assumed that:
 3. Check images `sudo docker images`
 4. Run container `sudo docker run -d -p 2223:22 -v ~/project-path/MemcachedManager:/MemcachedManager -t picamator/memcachedmanager`
 5. Check container by executing command `sudo docker ps`
+6. Run command to get into container `ssh root@0.0.0.0 -p 2223`
+7. Run memcached `memcached -u root`
 
 SSH
 ---
 Please use credentials bellow to connect to container via ssh:
-1. user: root
-2. password: screencast
+1. user: `root`
+2. password: `screencast`
 
 Configuration IDE (PhpStorm)
 ---------------------------- 

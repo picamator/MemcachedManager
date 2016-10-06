@@ -438,7 +438,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:picamator/CacheManager.git",
-                "reference": "6a0c234f0254288b35005a7ec78c639ab1dd2a81"
+                "reference": "8321cabe128c4315f971f11aaed392b5b2dbdf5b"
             },
             "require": {
                 "cache/adapter-common": "^0.3",
@@ -477,7 +477,7 @@
                 "management",
                 "wrapper"
             ],
-            "time": "2016-10-05 12:01:51"
+            "time": "2016-10-06 07:23:27"
         },
         {
             "name": "psr/cache",

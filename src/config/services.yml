@@ -60,11 +60,16 @@ services:
     class: '\Picamator\MemcachedManager\Observer\OperationLogger'
     arguments: ['@logger']
 
-  # main
+  # main manager
   cache_manager:
     class: '\Picamator\CacheManager\CacheManager'
     arguments: ['@operation_save', '@operation_search', '@operation_delete']
 
+  # main manager as observer
+  event_builder:
+    class: '\Picamator\CacheManager\Data\EventBuilder'
+    arguments: ['@object_manager']
+
   cache_manager_subject:
     class: '\Picamator\CacheManager\CacheManagerSubject'
-    arguments: ['@cache_manager']
+    arguments: ['@cache_manager', '@event_builder']

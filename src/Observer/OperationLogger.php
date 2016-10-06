@@ -1,6 +1,7 @@
 <?php
 namespace Picamator\MemcachedManager\Observer;
 
+use Picamator\CacheManager\Spi\Data\EventInterface;
 use Picamator\CacheManager\Spi\ObserverInterface;
 use Picamator\CacheManager\Spi\SubjectInterface;
 use Monolog\Logger;
@@ -26,9 +27,8 @@ class OperationLogger implements ObserverInterface
     /**
      * {@inheritdoc}
      */
-    public function update(SubjectInterface $subject, array $data)
+    public function update(SubjectInterface $subject, EventInterface $event)
     {
-        $event = current($data);
-        $this->logger->info($event);
+        $this->logger->info($event->getName());
     }
 }

@@ -3,6 +3,9 @@ namespace Picamator\MemcachedManager\Tests\Integration;
 
 class CacheManagerTest extends BaseTest
 {
+    /**
+     * Provide search data that are not present in cache
+     */
     public function testEmptyCacheSearch()
     {
         $searchCriteria = $this->searchCriteriaBuilder
@@ -18,6 +21,9 @@ class CacheManagerTest extends BaseTest
         $this->assertEquals(0, $searchResult->count());
     }
 
+    /**
+     * Make search data that are present in cache
+     */
     public function testHasInCacheSearch()
     {
         // save to cache
@@ -61,6 +67,9 @@ class CacheManagerTest extends BaseTest
         }
     }
 
+    /**
+     * Ask search data with less information that were saved in cache
+     */
     public function testHasMoreFieldsInCacheSearch()
     {
         // save to cache
@@ -104,6 +113,9 @@ class CacheManagerTest extends BaseTest
         }
     }
 
+    /**
+     * Ask search data with more information that were saved in cache
+     */
     public function testHasNotInCacheSearch()
     {
         // save to cache
@@ -135,6 +147,9 @@ class CacheManagerTest extends BaseTest
 
     }
 
+    /**
+     * Data should be save in cache
+     */
     public function testSave()
     {
         // save to cache
@@ -151,6 +166,9 @@ class CacheManagerTest extends BaseTest
         $this->assertTrue($actualSave);
     }
 
+    /**
+     * Data should be deleted from cache
+     */
     public function testDelete()
     {
         // save to cache

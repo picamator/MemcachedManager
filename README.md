@@ -28,7 +28,7 @@ $container = new ContainerBuilder();
 $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__));
 $loader->load('./src/config/services.yml');
 
-// gets search criteria and manager
+// get search criteria and manager
 /** @var \Picamator\CacheManager\CacheManagerSubject $cacheManagerSubject */
 $cacheManagerSubject = $this->container->get('cache_manager_subject');
 /** @var \Picamator\CacheManager\Data\SearchCriteriaBuilder $searchCriteriaBuilder */
@@ -52,7 +52,7 @@ $searchResult = $this->cacheManager->search($searchCriteria);
 
 ```
 
-More examples can be found inside [integration tests](dev/test/integration/src).
+More examples are inside [integration tests](dev/test/integration/src).
 
 Developing
 ----------

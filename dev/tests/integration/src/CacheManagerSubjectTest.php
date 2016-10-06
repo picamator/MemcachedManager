@@ -21,6 +21,9 @@ class CacheManagerSubjectTest extends BaseTest
         $this->loggerTestHandler = $this->container->get('logger_test_handler');
     }
 
+    /**
+     * Test all cache manager operation usage with observing all events
+     */
     public function testEvent()
     {
         // events over save operation

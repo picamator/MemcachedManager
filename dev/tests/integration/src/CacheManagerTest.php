@@ -144,7 +144,6 @@ class CacheManagerTest extends BaseTest
         $this->assertFalse($searchResult->hasData());
         $this->assertEquals(0, $searchResult->count());
         $this->assertCount(3, $searchResult->getMissedData());
-
     }
 
     /**

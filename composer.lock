@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "255d37f795330c6ca2f55eb536cd3831",
-    "content-hash": "c5b311832224eab3aea6d7be1bb96268",
+    "hash": "e5451b96013b64be42ff90541c8e0e4a",
+    "content-hash": "66eb62cb452729a45a237be00caea1c3",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -434,11 +434,11 @@
         },
         {
             "name": "picamator/cachemanager",
-            "version": "dev-dev",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:picamator/CacheManager.git",
-                "reference": "8321cabe128c4315f971f11aaed392b5b2dbdf5b"
+                "reference": "1c4d7413a4c24bcb4fb7b97d9074b096e297c123"
             },
             "require": {
                 "cache/adapter-common": "^0.3",
@@ -477,7 +477,7 @@
                 "management",
                 "wrapper"
             ],
-            "time": "2016-10-06 07:23:27"
+            "time": "2016-10-07 09:54:10"
         },
         {
             "name": "psr/cache",
@@ -2197,9 +2197,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "picamator/cachemanager": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

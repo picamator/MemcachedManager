@@ -28,8 +28,8 @@ RUN bash -c "echo extension=memcached.so > /etc/php/7.0/mods-available/memcached
 RUN bash -c "echo extension=memcached.so > /etc/php/7.0/cli/conf.d/20-memcached.ini"
 
 # composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php -r "file_put_contents('composer-setup.php', file_get_contents('https://getcomposer.org/installer'));"
+RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
@@ -47,9 +47,18 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
+# supervisor
+RUN apt-get install -y supervisor
+RUN mkdir -p  /var/log/supervisor
+ADD ./dev/docker/app/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# expose ports
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["supervisord", "--configuration", "/etc/supervisor/conf.d/supervisord.conf", "--logfile", "/var/log/supervisor/supervisord.log", "--logfile_maxbytes", "5000000", "--logfile_backups", "5", "--pidfile", "/var/tmp/supervisord.pid"]
 
 # volume
 RUN mkdir /MemcachedManager
 VOLUME /MemcachedManager
+
+# workdir
+WORKDIR /MemcachedManager

@@ -42,7 +42,7 @@ abstract class BaseTest extends TestCase
 
         $this->container = new ContainerBuilder();
         $this->loader = new YamlFileLoader($this->container, new FileLocator(__DIR__));
-        $this->loader->load('./../../../../src/config/services.yml');
+        $this->loader->load('./../../../../config/services.yml');
 
         $this->cacheManager = $this->container->get('cache_manager');
         $this->cacheManagerSubject = $this->container->get('cache_manager_subject');
